@@ -5,8 +5,6 @@ async function getToken() {
     "https://stoplight.io/mocks/highlevel/integrations/39582851/oauth/token";
 
   const req_body = {
-    client_id: "65c0a9a4277b2961322c545a-ls8q934d",
-    client_secret: "94af4663-c0c7-4340-9ce5-39b38e88c146",
     grant_type: "authorization_code",
   };
 
