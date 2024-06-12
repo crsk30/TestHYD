@@ -41,8 +41,9 @@ async function getContacts() {
   };
   try {
     const response = await axios.get(baseUrl, header);
-    console.log("response id :", response.data.contacts[0]);
-    // console.log("response :", response.data.contacts);
+    console.log("response id :", response.data.contacts[0].customFields[0]);
+    console.log("response :", response.data.contacts[0].id);
+    // return;
     return response.data.contacts;
   } catch (error) {
     console.log("error fetching contacts", error);
@@ -56,9 +57,9 @@ async function updateContacts() {
   baseUrl = `https://stoplight.io/mocks/highlevel/integrations/39582863/contacts/${contact[0].id}`;
   const header = {
     headers: {
-      Accept: "*/*",
+      Accept: "application/json",
       "Content-Type": "application/json",
-      "Accept-Encoding": "application/json",
+      // "Accept-Encoding": "application/json",
       Version: "2021-07-28",
       Authorization: `Bearer ${authToken.access_token}`,
     },
@@ -82,7 +83,7 @@ async function updateContacts() {
   // console.log("BODY :", body);
   // return;
   let body = {
-    firstName: "rosan",
+    firstName: "roshan",
     lastName: "Deo",
     name: "rosan Deo",
     email: "rosan@deos.com",
@@ -135,18 +136,21 @@ async function updateContacts() {
     tags: ["nisi sint commodo amet", "consequat"],
     customFields: [
       {
-        id: "6dvNaf7VhkQ9snc5vnjJ",
-        key: "my_custom_field",
-        field_value: "9039160788",
+        // id: "6dvNaf7VhkQ9snc5vnjJ",
+        id: "TEST",
+        value: "TEST",
       },
     ],
     source: "public api",
     country: "US",
   };
+  console.log("body :", body.customFields);
+  // return;
   try {
     const response = await axios.put(baseUrl, body, header);
     console.log("response id :", response.data);
-    console.log("response :", response.data);
+    console.log("body :");
+    console.log("response :", response.data.contact.customFields);
   } catch (error) {
     console.log("error updating contacts", error.message);
     // throw error.message;
