@@ -41,8 +41,8 @@ async function getContacts() {
   };
   try {
     const response = await axios.get(baseUrl, header);
-    console.log("response id :", response.data.contacts[0].id);
-    console.log("response :", response.data.contacts);
+    console.log("response id :", response.data.contacts[0]);
+    // console.log("response :", response.data.contacts);
     return response.data.contacts;
   } catch (error) {
     console.log("error fetching contacts", error);
@@ -53,41 +53,103 @@ async function getContacts() {
 async function updateContacts() {
   const authToken = await getToken();
   const contact = await getContacts();
-  baseUrl = `https://services.leadconnectorhq.com/contacts/${contact[0].id}`;
+  baseUrl = `https://stoplight.io/mocks/highlevel/integrations/39582863/contacts/${contact[0].id}`;
   const header = {
     headers: {
       Accept: "*/*",
-      "Content-Type": "application/x-www-form-urlencoded",
-      "Accept-Encoding": "application/x-www-form-urlencoded",
+      "Content-Type": "application/json",
+      "Accept-Encoding": "application/json",
       Version: "2021-07-28",
       Authorization: `Bearer ${authToken.access_token}`,
     },
   };
-  let body = [
-    {
-      id: contact[0].id,
-      locationId: contact[0].locationId,
-      email: contact[0].email,
-      timezone: contact[0].timezone,
-      country: contact[0].country,
-      source: contact[0].source,
-      dateAdded: contact[0].dateAdded,
-      customFields: contact[0].customFields,
-      tags: contact[0].tags,
-      businessId: contact[0].businessId,
-      attributions: contact[0].attributions,
-      followers: contact[0].followers,
+  // let body = [
+  //   {
+  //     id: contact[0].id,
+  //     locationId: contact[0].locationId,
+  //     email: contact[0].email,
+  //     timezone: contact[0].timezone,
+  //     country: contact[0].country,
+  //     source: contact[0].source,
+  //     dateAdded: contact[0].dateAdded,
+  //     customFields: contact[0].customFields,
+  //     tags: contact[0].tags,
+  //     businessId: contact[0].businessId,
+  //     attributions: contact[0].attributions,
+  //     followers: contact[0].followers,
+  //   },
+  // ];
+  // console.log("BODY :", body);
+  // return;
+  let body = {
+    firstName: "rosan",
+    lastName: "Deo",
+    name: "rosan Deo",
+    email: "rosan@deos.com",
+    phone: "+1 888-888-8888",
+    address1: "3535 1st St N",
+    city: "Dolomite",
+    state: "AL",
+    postalCode: "35061",
+    website: "https://www.tesla.com",
+    timezone: "America/Chihuahua",
+    dnd: true,
+    dndSettings: {
+      Call: {
+        status: "active",
+        message: "string",
+        code: "string",
+      },
+      Email: {
+        status: "active",
+        message: "string",
+        code: "string",
+      },
+      SMS: {
+        status: "active",
+        message: "string",
+        code: "string",
+      },
+      WhatsApp: {
+        status: "active",
+        message: "string",
+        code: "string",
+      },
+      GMB: {
+        status: "active",
+        message: "string",
+        code: "string",
+      },
+      FB: {
+        status: "active",
+        message: "string",
+        code: "string",
+      },
     },
-  ];
-  console.log("BODY :", body);
-  return;
+    inboundDndSettings: {
+      all: {
+        status: "active",
+        message: "string",
+      },
+    },
+    tags: ["nisi sint commodo amet", "consequat"],
+    customFields: [
+      {
+        id: "6dvNaf7VhkQ9snc5vnjJ",
+        key: "my_custom_field",
+        field_value: "9039160788",
+      },
+    ],
+    source: "public api",
+    country: "US",
+  };
   try {
-    const response = await axios.put(baseUrl, header);
+    const response = await axios.put(baseUrl, body, header);
     console.log("response id :", response.data);
     console.log("response :", response.data);
   } catch (error) {
-    console.log("error fetching contacts", error);
-    throw error.message;
+    console.log("error updating contacts", error.message);
+    // throw error.message;
   }
 }
 
